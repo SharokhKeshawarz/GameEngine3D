@@ -1,0 +1,11 @@
+{
+    "name" : "gameengine",
+    "version-string" : "1.0.0",
+    "dependencies" : [
+        "glfw3",
+        "assimp",
+        "freetype",
+        "openal-soft",
+        "bullet3"
+    ]
+}
