@@ -1,6 +1,6 @@
 {
     "name" : "gameengine",
-    "version-string" : "1.0.0",
+    "version-string" : "0.1.0",
     "dependencies" : [
         "glfw3",
         "assimp",
