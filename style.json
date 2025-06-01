@@ -1,0 +1,95 @@
+{
+        "content": {
+
+            "id":"ccstpl",
+            "name":"form",
+            "parent":"ywxkru",
+            "children":[],
+            "settings": {
+                "fields":[ {
+                    "type": "text", "id":"d68037", "options":"1:Date croissante\n2:Date décroissante", "valueLabelOptions":true, "label":"Nom :", "placeholder":"Votre nom", "width":"50"
+                }
+                ,
+                {
+                "type": "text", "id":"ypnjht", "placeholder":"Votre prénom", "label":"Prénom :", "width":"50"
+            }
+
+            ,
+            {
+            "type": "text", "label":"E-mail :", "id":"afyfck", "placeholder":"Votre e-mail"
+        }
+
+        ,
+        {
+        "type": "textarea", "placeholder":"Votre message", "id":"mixbcd", "label":"Message :", "resize":"vertical", "height":"170"
+    }
+
+    ],
+    "fieldBackgroundColor": {
+        "hex": "#eceef3", "id":"zgjmdl", "name":"Gris clair"
+    }
+
+    ,
+    "fieldBorder": {
+        "color": {
+            "hex": "#004996", "id":"tzwyyk", "name":"Bleu foncé"
+        }
+    }
+
+    ,
+    "submitButtonBackgroundColor": {
+        "hex": "#ffffff", "id":"qxdcfp", "name":"Blanc"
+    }
+
+    ,
+    "submitButtonTypography": {
+        "color": {
+            "hex": "#004996", "id":"tzwyyk", "name":"Bleu foncé"
+        }
+
+        ,
+        "font-weight":"700",
+        "text-transform":"none"
+    }
+
+    ,
+    "submitButtonWidth":"30",
+    "submitButtonMargin": {
+        "left": "170", "bottom":"30", "top":"10"
+    }
+
+    ,
+    "_typography": {
+        "color": {
+            "hex": "#ffffff", "id":"qxdcfp", "name":"Blanc"
+        }
+    }
+
+    ,
+    "horizontalAlignFields":"flex-start",
+    "labelTypography": {
+        "text-transform": "capitalize", "font-size":"13"
+    }
+
+    ,
+    "placeholderTypography": {
+
+        "font-size":"13",
+        "color": {
+            "hex": "#8c8c8c"
+        }
+    }
+
+    ,
+    "_cssCustom":"%root% {\n  color: white;\n}"
+}
+
+,
+"themeStyles":[]
+}
+
+,
+"source":"bricksCopiedElementStyles",
+"sourceUrl":"https://cfau.jampes68.com",
+"version":"1.12.4"
+}
