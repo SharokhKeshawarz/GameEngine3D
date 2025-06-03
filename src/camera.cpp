@@ -33,7 +33,7 @@ void Camera::Matrix(Shader& shader, const std::string& uniform)
 
 void Camera::Inputs(Window& window)
 {
-    float deltaTime = window.GetDeltaTime(); // ⏱ Get frame time
+    float deltaTime = window.GetDeltaTime();
     float velocity;
 
     if (glfwGetKey(window.GetRenderer(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
@@ -82,4 +82,3 @@ void Camera::Inputs(Window& window)
         firstClick = true;
     }
 }
-
