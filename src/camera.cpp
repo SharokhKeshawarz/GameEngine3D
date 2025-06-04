@@ -38,10 +38,10 @@ void Camera::Inputs(Window& window)
 
     if (glfwGetKey(window.GetRenderer(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
         velocity = (speed * 2.0f) * deltaTime;
-    else if (glfwGetKey(window.GetRenderer(), GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE)
+    else
         velocity = speed * deltaTime;
 
-
+    // Movement
     if (glfwGetKey(window.GetRenderer(), GLFW_KEY_W) == GLFW_PRESS)
         Position += velocity * Orientation;
     if (glfwGetKey(window.GetRenderer(), GLFW_KEY_A) == GLFW_PRESS)
@@ -55,29 +55,37 @@ void Camera::Inputs(Window& window)
     if (glfwGetKey(window.GetRenderer(), GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
         Position += velocity * -Up;
 
+    // Mouse input
     if (glfwGetMouseButton(window.GetRenderer(), GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-        glfwSetInputMode(window.GetRenderer(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
-
-        if (firstClick) {
-            glfwSetCursorPos(window.GetRenderer(), (width / 2), (height / 2));
-            firstClick = false;
-        }
+        glfwSetInputMode(window.GetRenderer(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
         double mouseX, mouseY;
         glfwGetCursorPos(window.GetRenderer(), &mouseX, &mouseY);
 
-        float rotX = sensitivity * static_cast<float>(mouseY - (height / 2)) / height;
-        float rotY = sensitivity * static_cast<float>(mouseX - (width / 2)) / width;
+        if (firstClick) {
+            lastMouseX = mouseX;
+            lastMouseY = mouseY;
+            firstClick = false;
+        }
 
-        glm::vec3 newOrientation = glm::rotate(Orientation, glm::radians(-rotX), glm::normalize(glm::cross(Orientation, Up)));
+        float deltaX = static_cast<float>(mouseX - lastMouseX);
+        float deltaY = static_cast<float>(mouseY - lastMouseY);
+
+        lastMouseX = mouseX;
+        lastMouseY = mouseY;
+
+        float rotX = sensitivity * deltaY / height;
+        float rotY = sensitivity * deltaX / width;
+
+        glm::vec3 right = glm::normalize(glm::cross(Orientation, Up));
+        glm::vec3 newOrientation = glm::rotate(Orientation, glm::radians(-rotX), right);
 
         if (abs(glm::angle(newOrientation, Up) - glm::radians(90.0f)) <= glm::radians(85.0f))
             Orientation = newOrientation;
 
         Orientation = glm::rotate(Orientation, glm::radians(-rotY), Up);
-
-        glfwSetCursorPos(window.GetRenderer(), (width / 2), (height / 2));
-    } else if (glfwGetMouseButton(window.GetRenderer(), GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) {
+    }
+    else {
         glfwSetInputMode(window.GetRenderer(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         firstClick = true;
     }

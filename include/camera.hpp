@@ -36,4 +36,8 @@ public:
     float FOV;
     float nearPlane;
     float farPlane;
+
+    double lastMouseX = 0.0;
+    double lastMouseY = 0.0;
+
 };
