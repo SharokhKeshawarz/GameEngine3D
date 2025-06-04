@@ -6,6 +6,7 @@
         "assimp",
         "freetype",
         "openal-soft",
-        "bullet3"
+        "bullet3",
+        "entt"
     ]
 }

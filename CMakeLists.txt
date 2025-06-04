@@ -22,6 +22,7 @@ find_package(assimp CONFIG REQUIRED)
 find_package(Freetype REQUIRED)
 find_package(OpenAL CONFIG REQUIRED)
 find_package(Bullet CONFIG REQUIRED)
+find_package(EnTT CONFIG REQUIRED)
 
 # Linux: Find OpenGL explicitly
 if(UNIX AND NOT APPLE)
@@ -34,6 +35,7 @@ file(GLOB_RECURSE SRC_FILES
     thirdparty/imgui/*.cpp
     thirdparty/glad/src/glad.c
 )
+add_subdirectory(thirdparty/enet)
 
 add_executable(GameEngine ${SRC_FILES})
 
@@ -46,6 +48,7 @@ target_include_directories(GameEngine PRIVATE
     thirdparty/glm
     thirdparty/stb
     thirdparty/sol2
+    thirdparty/enet/include
 )
 
 set_target_properties(GameEngine PROPERTIES
@@ -61,6 +64,8 @@ target_link_libraries(GameEngine PRIVATE
     BulletDynamics
     BulletCollision
     LinearMath
+    EnTT::EnTT
+    enet
 )
 
 # Windows specific libs & defines

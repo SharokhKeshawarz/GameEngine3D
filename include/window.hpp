@@ -14,6 +14,7 @@ public:
     uint32_t GetHeight() const;
     std::string GetTitle() const;
     GLFWwindow* GetRenderer() const;
+    float GetDeltaTime() const;
     
     bool ShouldClose() const;
     void Update(uint32_t r, uint32_t g, uint32_t b, uint32_t a);
@@ -25,4 +26,6 @@ private:
     uint32_t width, height;
     std::string title;
     GLFWwindow* renderer;
+    float deltaTime = 0.0f;
+    float lastFrame = 0.0f;
 };

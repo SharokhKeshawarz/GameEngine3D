@@ -6,8 +6,10 @@ Window::Window(uint32_t width, uint32_t height, const std::string& title)
     this->height = height;
     this->title = title;
     
-    if (!glfwInit())
-        throw std::runtime_error("Failed to init glfw");
+    if (!glfwInit()) {
+        std::cout << "FAILED TO INIT GLFW" << std::endl;
+        exit(84);
+    }
     
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
@@ -15,13 +17,16 @@ Window::Window(uint32_t width, uint32_t height, const std::string& title)
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
     this->renderer = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
-    if (!this->renderer)
-        throw std::runtime_error("Failed to init Window");
-
+    if (!this->renderer) {
+        std::cout << "FAILED TO INIT WINDOW" << std::endl;
+        exit(84);
+    }
     glfwMakeContextCurrent(this->renderer);
     glfwSwapInterval(0);
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-        throw std::runtime_error("Failed to init glad");
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+        std::cout << "FAILED TO INIT GLAD" << std::endl;
+        exit(84);
+    }
     glViewport(0, 0, width, height);
     glEnable(GL_DEPTH_TEST);
 }
@@ -46,6 +51,11 @@ GLFWwindow* Window::GetRenderer() const
     return this->renderer;
 }
 
+float Window::GetDeltaTime() const
+{
+    return deltaTime;
+}
+
 bool Window::ShouldClose() const
 {
     return glfwWindowShouldClose(this->renderer);
@@ -53,6 +63,10 @@ bool Window::ShouldClose() const
 
 void Window::Update(uint32_t r, uint32_t g, uint32_t b, uint32_t a)
 {
+    float currentFrame = static_cast<float>(glfwGetTime());
+    deltaTime = currentFrame - lastFrame;
+    lastFrame = currentFrame;
+
     glClearColor(r, g, b, a);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
@@ -60,7 +74,7 @@ void Window::Update(uint32_t r, uint32_t g, uint32_t b, uint32_t a)
 void Window::Display()
 {
     glfwSwapBuffers(this->renderer);
-    glfwPollEvents();;
+    glfwPollEvents();
 }
 
 void Window::Destroy()
