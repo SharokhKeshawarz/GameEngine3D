@@ -16,14 +16,29 @@ Camera::Camera(int width, int height, glm::vec3 position)
     farPlane = 100.0f;
 }
 
+void Camera::Update(Window& window)
+{
+    Inputs(window);
+    UpdateMatrix();
+}
+
 void Camera::UpdateMatrix()
 {
-    glm::mat4 view = glm::mat4(1.0f);
-    glm::mat4 projection = glm::mat4(1.0f);
-
+    view = glm::mat4(1.0f);
+    projection = glm::mat4(1.0f);
     view = glm::lookAt(Position, Position + Orientation, Up);
     projection = glm::perspective(glm::radians(FOV), static_cast<float>(width)/static_cast<float>(height), nearPlane, farPlane);
     cameraMatrix = projection * view;
+}
+
+glm::mat4 Camera::GetViewMatrix() const
+{
+    return view;
+}
+
+glm::mat4 Camera::GetProjectionMatrix() const
+{
+    return projection;
 }
 
 void Camera::Matrix(Shader& shader, const std::string& uniform)

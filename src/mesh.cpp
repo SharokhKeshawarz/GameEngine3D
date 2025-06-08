@@ -3,7 +3,6 @@
 Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<GLuint>& indices, VertexFormat format, GLenum usage)
     : format(format)
 {
-    std::cout << "FRON INIT" << std::endl;
     useIndices = !indices.empty();
     indexCount = useIndices
         ? static_cast<GLsizei>(indices.size())
@@ -47,12 +46,19 @@ void Mesh::Update(Shader& shader)
     model = glm::rotate(model, glm::radians(rotation.y), glm::vec3(0, 1, 0));
     model = glm::rotate(model, glm::radians(rotation.z), glm::vec3(0, 0, 1));
     model = glm::scale(model, scale);
-
     shader.SetMat4("model", GL_FALSE, glm::value_ptr(model));
 }
 
 void Mesh::Draw() const
 {
+    if (texture) texture->Bind();
+    if (!textures.empty()) {
+        for (size_t i = 0; i < textures.size(); i++) {
+            glActiveTexture(GL_TEXTURE0 + i);
+            textures[i]->Bind();
+        }
+    }
+
     vao.Bind();
 
     useIndices
@@ -60,6 +66,23 @@ void Mesh::Draw() const
         : glDrawArrays(GL_TRIANGLES, 0, indexCount);
     
     vao.Unbind();
+    if (texture) texture->Unbind();
+    if (!textures.empty()) {
+        for (size_t i = 0; i < textures.size(); i++) {
+            glActiveTexture(GL_TEXTURE0 + i);
+            textures[i]->Unbind();
+        }
+    }
+}
+
+void Mesh::SetTexture(Texture& texture)
+{
+    this->texture = &texture;
+}
+
+void Mesh::SetTextures(const std::vector<Texture*>& textures)
+{
+    this->textures = textures;
 }
 
 void Mesh::Translate(float x, float y, float z)

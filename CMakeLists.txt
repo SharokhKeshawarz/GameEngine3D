@@ -33,6 +33,7 @@ file(GLOB_RECURSE SRC_FILES
     src/*.cpp
     thirdparty/imgui/*.cpp
     thirdparty/glad/src/glad.c
+    thirdparty/stb/stb_image.cpp
 )
 
 add_executable(GameEngine ${SRC_FILES})

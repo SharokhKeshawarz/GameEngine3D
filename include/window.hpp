@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -17,7 +18,7 @@ public:
     float GetDeltaTime() const;
     
     bool ShouldClose() const;
-    void Update(uint32_t r, uint32_t g, uint32_t b, uint32_t a);
+    void Update(float r, float g, float b, float a);
     void Display();
 
     void Destroy();
@@ -28,4 +29,6 @@ private:
     GLFWwindow* renderer;
     float deltaTime = 0.0f;
     float lastFrame = 0.0f;
+    float fpsTimer = 0.0f;
+    int frameCount = 0;
 };

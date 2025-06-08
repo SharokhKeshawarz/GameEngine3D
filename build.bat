@@ -6,7 +6,7 @@ if not exist build (
 
 cd build
 
-REM Configure with CMake (Debug build)
+REM Always run CMake to reconfigure (detect new files, changes)
 cmake -DCMAKE_BUILD_TYPE=Debug ..
 
 REM Build the project

@@ -13,6 +13,9 @@
 #include "vbo.hpp"
 #include "ebo.hpp"
 
+#include "texture.hpp"
+#include <vector>
+
 enum class VertexFormat : uint32_t {
     None        = 0,
     Position    = 1 << 0,
@@ -60,6 +63,8 @@ public:
     void Update(Shader& shader);
     void Draw() const;
 
+    void SetTexture(Texture& texture);
+    void SetTextures(const std::vector<Texture*>& textures);
     void Translate(float x, float y, float z);
     void Rotate(float angle, float x, float y, float z);
     void Scale(float x, float y, float z);
@@ -73,6 +78,9 @@ private:
     GLsizei indexCount = 0;
     bool useIndices = false;
     VertexFormat format;
+
+    Texture* texture = nullptr;
+    std::vector<Texture*> textures;
 
     glm::vec3 position = glm::vec3(0.0f);
     glm::vec3 rotation = glm::vec3(0.0f);

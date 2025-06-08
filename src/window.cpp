@@ -61,7 +61,7 @@ bool Window::ShouldClose() const
     return glfwWindowShouldClose(this->renderer);
 }
 
-void Window::Update(uint32_t r, uint32_t g, uint32_t b, uint32_t a)
+void Window::Update(float r, float g, float b, float a)
 {
     float currentFrame = static_cast<float>(glfwGetTime());
     deltaTime = currentFrame - lastFrame;
@@ -69,7 +69,21 @@ void Window::Update(uint32_t r, uint32_t g, uint32_t b, uint32_t a)
 
     glClearColor(r, g, b, a);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    fpsTimer += deltaTime;
+    frameCount++;
+
+    if (fpsTimer >= 1.0f) {
+        float fps = frameCount / fpsTimer;
+
+        std::string newTitle = title + " - FPS: " + std::to_string(static_cast<int>(fps));
+        glfwSetWindowTitle(renderer, newTitle.c_str());
+
+        fpsTimer = 0.0f;
+        frameCount = 0;
+    }
 }
+
 
 void Window::Display()
 {
