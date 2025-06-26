@@ -11,7 +11,7 @@ int main()
     Window window(800, 600, "Game Engine");
 
     Shader shader("../shaders/default.vert", "../shaders/default.frag");
-
+    std::cerr << "EE" << std::endl;
     std::vector<Vertex> vertices = {
         // FRONT (+Z)
         {{-0.5f, -0.5f,  0.5f}, {1.0f, 0.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 0.0f, 1.0f}},
